@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ user.username }}!</h1>
+    <h2> This is the list of your patients:</h2>
+    {% for patient_data in patient_datas %}
+    <div><p>{{ patient_data.patient.name }} BMI: <b>{{ patient_data.BMI }}</b></p></div>
+    {% endfor %}
+    <br>
+    {% for u in patient_users %}
+    <div><p>{{ u.username }} Mail: <b>{{ u.email }}</b></p></div>
+    {% endfor %}
+{% endblock %}
