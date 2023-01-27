@@ -15,8 +15,8 @@ Form per Registrazione del dottore
 '''
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    lastname = StringField('Last Name', validators=[DataRequired()])
-    phoneNumber = StringField('Phone number', validators=[DataRequired()])  #sotto forma di stringa così non è modificabile
-    submit = SubmitField('register')
+    lastname = StringField('Lastname', validators=[DataRequired()])
+    phoneNumber = StringField('Phone Number', validators=[DataRequired()])  #sotto forma di stringa così non è modificabile
+    submit = SubmitField('Register')
 
 #TODO:creare altri form per filtrare risultati qua sotto

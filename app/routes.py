@@ -17,9 +17,7 @@ def login():
 def registration():
     form = RegistrationForm()
     if form.validate_on_submit():
-        #TODO: validare i dati di iscrizione del medico
-        flash('registration requested for user {}, remember_me={}'.format(
-            form.name.data, form.lastname.data, form.phoneNumber.data))
+        flash('registration requested for user {}'.format(
+            form.name.data))
         return redirect(url_for('index'))
     return render_template('registration.html', title='Registration', form=form)    
-
