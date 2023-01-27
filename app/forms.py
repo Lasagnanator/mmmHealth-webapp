@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
+from wtforms_alchemy import PhoneNumberField
+
 
 
 '''form per login entrambi utenti'''
@@ -16,7 +18,8 @@ Form per Registrazione del dottore
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     lastname = StringField('Lastname', validators=[DataRequired()])
-    phoneNumber = StringField('Phone Number', validators=[DataRequired()])  #sotto forma di stringa così non è modificabile
+    #phoneNumber = StringField('Phone Number', validators=[DataRequired()])  #sotto forma di stringa così non è modificabile
+    phoneNumber = PhoneNumberField('Phone Number', validators=[DataRequired()]) #campo numero di telefono
     submit = SubmitField('Register')
 
 #TODO:creare altri form per filtrare risultati qua sotto
