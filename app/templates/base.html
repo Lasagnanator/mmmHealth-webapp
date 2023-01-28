@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="medical web app for a school project at TIB course, ITS A.Volta">
     <meta name="author" content="Castellani Mattia, Divo Andrea, Lapovich Giulio">
-
+    <link rel="icon" type="image/x-icon" href="../static/img/index4.png">
+    <link rel="stylesheet" href="../static/css/base.css">
     <!-- Bootstrap core CSS  using Bootstrap Flask -->
     {{ bootstrap.load_css() }}
     
@@ -20,7 +21,7 @@
      
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">inserire logo</a>
+          <a class="navbar-brand" href="#"><img id="nav_logo" src="../static/img/index4.png" alt="brand logo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -59,13 +60,9 @@
       {% endblock %}
 
       <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted">
+<footer class="text-center text-lg-start bg-white text-muted fixed-bottom">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-    <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
-    </div>
     <!-- Left -->
 
     <!-- Right -->

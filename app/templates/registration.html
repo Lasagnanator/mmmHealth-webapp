@@ -5,7 +5,8 @@
     <div class="d-block border border-3 rounded-5 p-4">
 
     <h1 class="text-center">Registration</h1>
-    <form action="" method="post" novalidate>
+    <!--TODO: definire la action del from-->
+    <form action="" method="post" novalidate>   
         {{ form.hidden_tag() }}
       <span>
         <p>
@@ -37,7 +38,7 @@
     </form>
     <span class="justify-content-center pt-3 d-block">
         <p class="text-center">alreadu a User?</p>
-        <p class="text-center"><a class="btn btn-primary rounded-pill" role="button" href="{{url_for('login')}}">log in</a></p>
+        <p class="text-center"><a class="btn btn-primary rounded-pill" role="button" href="{{url_for('login')}}">click here for login page</a></p>
     </span>
     </div>
 </div>
