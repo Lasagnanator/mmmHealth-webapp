@@ -13,7 +13,9 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 '''
-Form per Registrazione del dottore
+Form per Registrazione del dottoreù
+crea un nuovo record su DB
+TODO: un solo account per numero di telefono
 '''
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
