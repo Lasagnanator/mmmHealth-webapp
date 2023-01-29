@@ -22,21 +22,33 @@ def registration():
         return redirect(url_for('index'))
     return render_template('registration.html', title='Registration', form=form) 
 
+
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    #inviare la lista di pazienti con dati di base
+    #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
+    patients = {'Giovanni','Giorgio', 'pier', 'Paolo', 'Luca','MariaGiuseppa', 'paolina'} 
+    return render_template('index.html', title='profilo doc', patients= patients)
 
-    return render_template('index.html')
+
+@app.route('/homePz', methods=['GET', 'POST'])
+def homePz():
+    #visualizzazione tutti dati del paziente selezionato
+    return render_template('homePz.html',title='nome pazinte')
+
+
+
 
 #-----------------error handlers--------------------
 @app.errorhandler(404)
 # Intercetta l'errore page not found e lancia la nostra pagina 404
 def page_not_found(error):
-    return render_template('404.html'), 404
+    return render_template('404.html', title='404'), 404
 
 
 @app.errorhandler(500)
 # Intercetta l'errore internal server error lancia la nostra pagina 500
 def internal_server_error(error):
-    return render_template('500.html'), 500
+    return render_template('500.html', title='500'), 500
 
 #---------------------------------------------------

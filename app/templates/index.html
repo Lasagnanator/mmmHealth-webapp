@@ -6,9 +6,21 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 
 {% block index %}
 <!--blocco con lista dei pazienti-->
-<div>
-    <p>index</p>
+<div class="pt-3">
 
+    <!--card che si ripete per il numero di pazienti -->
+    {% for patient in patients %}
+    <div class="card">
+        <div class="card-header">
+          nome: {{ patient }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">un dato importante</h5>
+          <p class="card-text">altri dati gnerici sul paziente tipo andamento o cose così smepre usando Jinja2</p>
+          <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
+        </div>
+      </div>
+    {% endfor %}
 </div>
 
 {% endblock index %}
