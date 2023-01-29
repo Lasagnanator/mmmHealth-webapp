@@ -20,7 +20,7 @@ TODO: un solo account per numero di telefono
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     lastname = StringField('Lastname', validators=[DataRequired()])
-    #phoneNumber = StringField('Phone Number', validators=[DataRequired()])  #sotto forma di stringa così non è modificabile
+   
     phoneNumber = PhoneNumberField('Phone Number', validators=[DataRequired()]) #campo numero di telefono
     submit = SubmitField('Register')
 

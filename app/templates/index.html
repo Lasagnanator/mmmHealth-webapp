@@ -1,22 +1,14 @@
-{% extends "base.html" %}
+{% extends "base_doc.html" %}
 
 <!--PAGINA DI APERTURA DEL PROFILO DEL MEDICO 
 VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 -->
 
+{% block index %}
+<!--blocco con lista dei pazienti-->
 <div>
-    <!--blocco con cerca paziente-->
-</div>
-<div class="wrapper">
-    {% for user in db.user %}   <!--fargli ripetere il ciclo per ogni paziente del medico curante -->
-    <div class="userCard" onclick="{{url_for('homePz')}}">
-        
-        <p>{{ nome cognome paziente da database }}</p> <!-- variabile mandata da routes-->
-        <p>{{ data ultima visita da db}}</p>
-    
-    </div>
-    {% endfor %}
-
-
+    <p>index</p>
 
 </div>
+
+{% endblock index %}

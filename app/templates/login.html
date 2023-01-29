@@ -3,7 +3,7 @@
 {% block content %}
 <div class="d-flex justify-content-center m-5  ">
     <div class="d-block border border-3 rounded-5 p-4">
-        <h1 class="text-center"> Sign In</h1>
+        <h1 class="text-center"> Log In</h1>
 
         <!--TODO: definire la action del from-->
 
@@ -26,12 +26,11 @@
             <p class="text-center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
 
             <!--TODO: finire di stilizzare il pulsante e copiare nella pagina di registrazone-->
-            <button class=" rounded-pill  btn-primary">{{ form.submit() }}</button>
-            
+            <p class="text-center ">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
         </form>
         <span class="justify-content-center pt-3 d-block">
             <p class="text-center"> not a user yet?</p>
-            <p class="text-center"><a class="btn btn-primary rounded-pill" role="button" href="{{url_for('registration')}}">click here for registration page</a></p>
+            <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button" href="{{url_for('registration')}}">click here for registration page</a></p>
         </span>
     </div>
    

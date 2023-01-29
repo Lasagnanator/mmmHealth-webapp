@@ -22,8 +22,10 @@ def registration():
         return redirect(url_for('index'))
     return render_template('registration.html', title='Registration', form=form) 
 
+@app.route('/index', methods=['GET', 'POST'])
+def index():
 
-
+    return render_template('index.html')
 
 #-----------------error handlers--------------------
 @app.errorhandler(404)
