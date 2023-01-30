@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 from wtforms_alchemy import PhoneNumberField
+from datetime import datetime
+
 
 
 
@@ -13,7 +15,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 '''
-Form per Registrazione del dottoreù
+Form per Registrazione del dottore
 crea un nuovo record su DB
 TODO: un solo account per numero di telefono
 '''
@@ -25,3 +27,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
 #TODO:creare altri form per filtrare risultati qua sotto
+
+class patientFilters(FlaskForm):
+    date = DateField('data ultimo report', datetime.now(), format='%d-%m-%Y') #come si fa a scegliere da un calendario?
+    alfabetico = SelectField

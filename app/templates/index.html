@@ -6,8 +6,37 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 
 {% block index %}
 <!--blocco con lista dei pazienti-->
-<div class="pt-3">
 
+<div>
+  <!--form per filtrare i pazienti-->
+  <form action="" method="post" nonvalidate>
+    form.hidden_tag()
+  <ul class="nav justify-content-center p-3">
+    <li class="nav-item  p-2">
+      <p> label form ordine alfabetico 
+         lista con scelte a-z o z-a
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p> label form data ultimo report 
+         lista crecente o decrescente 
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p>  label form ricerca per nome paziente
+        autofill con patient.name <!-- so che si può fare ma non mi ricordo come -->
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p>filtro per data ultimo record 
+        mostra solo pazienti che hanno l'ultimo record in quella data  <!--come sopra, non sono pazzo, si può fare lo giuro-->
+      </p>
+    </li>
+  </ul>
+</form>
+</div>
+
+<div class="pt-3">
     <!--card che si ripete per il numero di pazienti -->
     {% for patient in patients %}
     <div class="card">
