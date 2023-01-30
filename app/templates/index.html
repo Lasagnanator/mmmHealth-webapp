@@ -13,25 +13,37 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 
   <ul class="nav justify-content-center p-3">
     <li class="nav-item  p-2">
+      <!--ordina pazienti per ordine alfabetico-->
       <p> {{ form.alfabetico.label }}
          {{ form.alfabetico() }}
       </p>
     </li>
     <li class="nav-item p-2">
+      <!--ricerca per ordine cronologico ultimo report-->
+      <p>{{ form.dateOrder.label }}
+        {{ form.dateOrder( )}}
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <!--selziona la data dei report da visualizzare-->
       <p> {{ form.date.label }} 
          {{ form.date() }}
+         {% for error in form.date.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
       </p>
     </li>
     <li class="nav-item p-2">
-      <p>  label form ricerca per nome paziente
-        autofill con patient.name <!-- so che si può fare ma non mi ricordo come -->
+      <!--ricerca per nome paziente-->
+      <p>{{ form.byName.label }} <!-- so che si può fare ma non mi ricordo come -->
+        {{ form.byName() }}
       </p>
     </li>
-    <li class="nav-item p-2">
-      <p>filtro per data ultimo record 
-        mostra solo pazienti che hanno l'ultimo record in quella data  <!--come sopra, non sono pazzo, si può fare lo giuro-->
-      </p>
+    <li class="nav-item p2">
+      {{ form.submit(class_="btn btn-primary rounded-pill")}}
+    </p>
     </li>
+   
   </ul>
 </form>
 </div>

@@ -11,14 +11,14 @@
             {{ form.hidden_tag() }}
             <span>
                 <p>{{ form.username.label }}</br>
-                {{ form.username(size=32) }}</p>
+                {{ form.username(class_="border rounded-pill ", size=32) }}</p>
                 {% for error in form.username.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </span>
             <span>
                 <p>{{ form.password.label }}</br>
-                {{ form.password(size=32) }}</p>
+                    {{ form.password(class_="border rounded-pill ", size=32) }}</p>
                 {% for error in form.password.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
