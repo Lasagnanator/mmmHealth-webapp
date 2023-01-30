@@ -1,13 +1,55 @@
-{% extends "base.html" %}
+{% extends "base_doc.html" %}
 
-{% block content %}
-    <h1>Hi, {{ user.username }}!</h1>
-    <h2> This is the list of your patients:</h2>
-    {% for patient_data in patient_datas %}
-    <div><p>{{ patient_data.patient.name }} BMI: <b>{{ patient_data.BMI }}</b></p></div>
+<!--PAGINA DI APERTURA DEL PROFILO DEL MEDICO 
+VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
+-->
+
+{% block index %}
+<!--blocco con lista dei pazienti-->
+
+<div>
+  <!--form per filtrare i pazienti-->
+  <form action="" method="post" nonvalidate>
+
+  <ul class="nav justify-content-center p-3">
+    <li class="nav-item  p-2">
+      <p> {{ form.alfabetico.label }}
+         {{ form.alfabetico() }}
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p> {{ form.date.label }} 
+         {{ form.date() }}
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p>  label form ricerca per nome paziente
+        autofill con patient.name <!-- so che si può fare ma non mi ricordo come -->
+      </p>
+    </li>
+    <li class="nav-item p-2">
+      <p>filtro per data ultimo record 
+        mostra solo pazienti che hanno l'ultimo record in quella data  <!--come sopra, non sono pazzo, si può fare lo giuro-->
+      </p>
+    </li>
+  </ul>
+</form>
+</div>
+
+<div class="pt-3">
+    <!--card che si ripete per il numero di pazienti -->
+    {% for patient in patients %}
+    <div class="card">
+        <div class="card-header">
+          nome: {{ patient }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">un dato importante</h5>
+          <p class="card-text">altri dati gnerici sul paziente tipo andamento o cose così smepre usando Jinja2</p>
+          <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
+        </div>
+      </div>
     {% endfor %}
-    <br>
-    {% for u in patient_users %}
-    <div><p>{{ u.username }} Mail: <b>{{ u.email }}</b></p></div>
-    {% endfor %}
-{% endblock %}
+</div>
+
+{% endblock index %}
