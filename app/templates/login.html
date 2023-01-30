@@ -1,24 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+<div class="d-flex justify-content-center m-5  ">
+    <div class="d-block border border-3 rounded-5 p-4">
+        <h1 class="text-center"> Log In</h1>
+
+        <!--TODO: definire la action del from-->
+
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <span>
+                <p>{{ form.username.label }}</br>
+                {{ form.username(size=32) }}</p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>{{ form.password.label }}</br>
+                {{ form.password(size=32) }}</p>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <p class="text-center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+
+            <!--TODO: finire di stilizzare il pulsante e copiare nella pagina di registrazone-->
+            <p class="text-center ">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
+        </form>
+        <span class="justify-content-center pt-3 d-block">
+            <p class="text-center"> not a user yet?</p>
+            <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button" href="{{url_for('registration')}}">click here for registration page</a></p>
+        </span>
+    </div>
+   
+</div>
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!--pagina con le info del profilo del medico
+richiamata sempre quando il doc ha fatto il login-->
+
+
+<!--barra in alto con profilo del medico-->
+<div>   
+    <ul class="nav justify-content-center p-3 shadow-sm bg-body rounded">
+        <li class="nav-item  p-2">
+          <p>nome dottore da db<br>
+            cognome dottore da db</p>
+        </li>
+        <li class="nav-item p-2">
+          <p>numero pazienti totali</p>
+        </li>
+        <li class="nav-item p-2">
+          <p>altre info a caso</p>
+        </li>
+        <li class="nav-item p-2">
+          <p>boh non ho più fantasia</p>
+        </li>
+      </ul>
+
+</div>
+
+{% block index %}
+{% endblock index %}
+
+{% endblock content %}
