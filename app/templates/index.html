@@ -18,13 +18,13 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
          {{ form.alfabetico() }}
       </p>
     </li>
-    <li class="nav-item p-2">
+    <li class="nav-item p-2 pl-3">
       <!--ricerca per ordine cronologico ultimo report-->
       <p>{{ form.dateOrder.label }}
         {{ form.dateOrder( )}}
       </p>
     </li>
-    <li class="nav-item p-2">
+    <li class="nav-item p-2  pl-3">
       <!--selziona la data dei report da visualizzare-->
       <p> {{ form.date.label }} 
          {{ form.date() }}
@@ -33,13 +33,13 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
           {% endfor %}
       </p>
     </li>
-    <li class="nav-item p-2">
+    <li class="nav-item p-2  pl-3">
       <!--ricerca per nome paziente-->
       <p>{{ form.byName.label }} <!-- so che si può fare ma non mi ricordo come -->
         {{ form.byName() }}
       </p>
     </li>
-    <li class="nav-item p2">
+    <li class="nav-item p2  pl-3">
       {{ form.submit(class_="btn btn-primary rounded-pill")}}
     </p>
     </li>
@@ -56,8 +56,8 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
           nome: {{ patient }}
         </div>
         <div class="card-body">
-          <h5 class="card-title">un dato importante</h5>
-          <p class="card-text">altri dati gnerici sul paziente tipo andamento o cose così smepre usando Jinja2</p>
+          <h5 class="card-title">Info paziente</h5>
+          <p class="card-text"> campo libero del medico </p>
           <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
         </div>
       </div>

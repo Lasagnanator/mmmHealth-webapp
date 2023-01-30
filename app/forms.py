@@ -32,7 +32,15 @@ filtra i pazienti del medico
 possible_names è temporaneo e va sostituito con la lista di tutti i pazienti del DB
 TODO: il validator della data non funziona
 '''
-possible_names={0:'Giovanni',1:'Piero',3:'Ciro',4:'Albino',5:'Paolino'} #sostituire con nomi di tutti i pazienti da DB
+possible_names = {0:'Giovanni Genovesi',
+            1:'Giorgio De Davide',
+            3:'Pier Paolo Paulari',
+            4:'Paolo Pier DePieri',
+            5:'Luca Nervi',
+            6:'MariaGiuseppa Paolina', 
+            7:'Paolina Giuseppini'} 
+
+
 class PatientFilters(FlaskForm):
 
     def validate_date():

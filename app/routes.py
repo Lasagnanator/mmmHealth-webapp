@@ -2,7 +2,20 @@ from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm, PatientFilters, RegistrationForm
 
+
+patients = {'Giovanni Genovesi',
+            'Giorgio De Davide',
+            'Pier Paolo Paulari',
+            'Paolo Pier DePieri',
+            'Luca Nervi',
+            'MariaGiuseppa Paolina', 
+            'Paolina Giuseppini'} 
+
 @app.route('/')
+def root():
+    return redirect(url_for('login'))
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -27,7 +40,6 @@ def registration():
 def index():
     #inviare la lista di pazienti con dati di base
     #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
-    patients = {'Giovanni','Giorgio', 'pier', 'Paolo', 'Luca','MariaGiuseppa', 'paolina'} 
     form = PatientFilters()
     return render_template('index.html', title='profilo doc', patients = patients, form = form)
     '''
