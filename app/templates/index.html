@@ -10,16 +10,16 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 <div>
   <!--form per filtrare i pazienti-->
   <form action="" method="post" nonvalidate>
-    form.hidden_tag()
+
   <ul class="nav justify-content-center p-3">
     <li class="nav-item  p-2">
-      <p> label form ordine alfabetico 
-         lista con scelte a-z o z-a
+      <p> {{ form.alfabetico.label }}
+         {{ form.alfabetico() }}
       </p>
     </li>
     <li class="nav-item p-2">
-      <p> label form data ultimo report 
-         lista crecente o decrescente 
+      <p> {{ form.date.label }} 
+         {{ form.date() }}
       </p>
     </li>
     <li class="nav-item p-2">

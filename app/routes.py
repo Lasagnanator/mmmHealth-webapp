@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, PatientFilters, RegistrationForm
 
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
@@ -28,7 +28,14 @@ def index():
     #inviare la lista di pazienti con dati di base
     #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
     patients = {'Giovanni','Giorgio', 'pier', 'Paolo', 'Luca','MariaGiuseppa', 'paolina'} 
-    return render_template('index.html', title='profilo doc', patients = patients)
+    form = PatientFilters()
+    return render_template('index.html', title='profilo doc', patients = patients, form = form)
+    '''
+    if form.validate_on_submit():
+        flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
+        return render_template('index.html', title='profilo doc', patients = patients, form = form)
+    '''   
+    
 
 
 @app.route('/homePz', methods=['GET', 'POST'])
