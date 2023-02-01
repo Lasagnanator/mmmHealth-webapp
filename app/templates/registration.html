@@ -34,6 +34,22 @@
             {% endfor %}
         
         </span>
+        <span>
+            <p>
+                {{ form.password1.label }}<br>
+                {{ form.password1(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.password1.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+          </span>
+          <span>
+            <p>
+                {{ form.password2.label }}<br>
+                {{ form.password2(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+          </span>
          <p class="text-center ">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
     </form>
     <span class="justify-content-center pt-3 d-block">

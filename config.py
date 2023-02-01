@@ -7,3 +7,4 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql+psycopg2://mhealth:BIGsmeni42@spectralkraken.tk:5432/mhealth'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+

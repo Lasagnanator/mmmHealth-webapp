@@ -12,7 +12,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 #BOOTSTRAPFLASK --> framework per usare bootstrap su flask
-# richiede installazione di un pacchetto 
 bootstrap = Bootstrap5(app)
 
 

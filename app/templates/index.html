@@ -11,57 +11,57 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
   <!--form per filtrare i pazienti-->
   <form action="" method="post" nonvalidate>
 
-  <ul class="nav justify-content-center p-3">
-    <li class="nav-item  p-2">
-      <!--ordina pazienti per ordine alfabetico-->
-      <p> {{ form.alfabetico.label }}
-         {{ form.alfabetico() }}
-      </p>
-    </li>
-    <li class="nav-item p-2 pl-3">
-      <!--ricerca per ordine cronologico ultimo report-->
-      <p>{{ form.dateOrder.label }}
-        {{ form.dateOrder( )}}
-      </p>
-    </li>
-    <li class="nav-item p-2  pl-3">
-      <!--selziona la data dei report da visualizzare-->
-      <p> {{ form.date.label }} 
-         {{ form.date() }}
-         {% for error in form.date.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+    <ul class="nav justify-content-center p-3">
+      <li class="nav-item  p-2">
+        <!--ordina pazienti per ordine alfabetico-->
+        <p> {{ form.alfabetico.label }}
+          {{ form.alfabetico() }}
+        </p>
+      </li>
+      <li class="nav-item p-2 pl-3">
+        <!--ricerca per ordine cronologico ultimo report-->
+        <p>{{ form.dateOrder.label }}
+          {{ form.dateOrder( )}}
+        </p>
+      </li>
+      <li class="nav-item p-2  pl-3">
+        <!--selziona la data dei report da visualizzare-->
+        <p> {{ form.date.label }}
+          {{ form.date() }}
+          {% for error in form.date.errors %}
+          <span style="color: red;">[{{ error }}]</span>
           {% endfor %}
-      </p>
-    </li>
-    <li class="nav-item p-2  pl-3">
-      <!--ricerca per nome paziente-->
-      <p>{{ form.byName.label }} <!-- so che si può fare ma non mi ricordo come -->
-        {{ form.byName() }}
-      </p>
-    </li>
-    <li class="nav-item p2  pl-3">
-      {{ form.submit(class_="btn btn-primary rounded-pill")}}
-    </p>
-    </li>
-   
-  </ul>
-</form>
+        </p>
+      </li>
+      <li class="nav-item p-2  pl-3">
+        <!--ricerca per nome paziente-->
+        <p>{{ form.byName.label }} <!-- so che si può fare ma non mi ricordo come -->
+          {{ form.byName() }}
+        </p>
+      </li>
+      <li class="nav-item p2  pl-3">
+        {{ form.submit(class_="btn btn-primary rounded-pill")}}
+        </p>
+      </li>
+
+    </ul>
+  </form>
 </div>
 
 <div class="pt-3">
-    <!--card che si ripete per il numero di pazienti -->
-    {% for patient in patients %}
-    <div class="card">
-        <div class="card-header">
-          nome: {{ patient }}
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Info paziente</h5>
-          <p class="card-text"> campo libero del medico </p>
-          <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
-        </div>
-      </div>
-    {% endfor %}
+  <!--card che si ripete per il numero di pazienti -->
+  {% for patient in patients %}
+  <div class="card shadow-sm m-3">
+    <div class="card-header">
+      nome: {{ patient }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Info paziente</h5>
+      <p class="card-text"> campo libero del medico </p>
+      <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock index %}

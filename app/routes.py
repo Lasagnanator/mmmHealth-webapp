@@ -25,7 +25,6 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html',  title='Sign In', form=form)
     
-
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     form = RegistrationForm()
@@ -41,7 +40,7 @@ def index():
     #inviare la lista di pazienti con dati di base
     #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
     form = PatientFilters()
-    return render_template('index.html', title='profilo doc', patients = patients, form = form)
+    return render_template('index.html', title='profilo doc', patients = patients, form = form)#sostituire patient con dati DB
     '''
     if form.validate_on_submit():
         flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
@@ -53,7 +52,14 @@ def index():
 @app.route('/homePz', methods=['GET', 'POST'])
 def homePz():
     #visualizzazione tutti dati del paziente selezionato
-    return render_template('homePz.html',title='nome pazinte')
+    return render_template('homePz.html',title='home di -nome pazinte-', patients= patients)#sostituire patient con dati DB
+
+
+@app.route('/reportPZ', methods=['GET', 'POST'])
+def reportPz():
+    #visualizzazione tutti dati del paziente selezionato
+    return render_template('reportPZ.html',title='report di -nome pazinte-')
+
 
 
 
