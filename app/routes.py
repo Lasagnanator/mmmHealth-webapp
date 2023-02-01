@@ -13,7 +13,11 @@ patients = {'Giovanni Genovesi',
 
 @app.route('/')
 def root():
-    return redirect(url_for('login'))
+    return redirect(url_for('landing'))
+
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
