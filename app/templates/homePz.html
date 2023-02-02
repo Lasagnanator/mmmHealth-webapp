@@ -6,7 +6,7 @@ SCI SONO FORM PER FILTRARE I DATI (PER DATA, TIPO ECC)
     TODO: VALUTARE SE METTERE TUTTE LE INFO QUI O UNA SOTTOPAGINA-->
 {% block content %}
 <div class="container-fluid">
-    <div>
+    <div style="margin-left:5%">
 
         <h1>nome ecognome paziente</h1>
         <p>data di nascita</p>
@@ -14,7 +14,7 @@ SCI SONO FORM PER FILTRARE I DATI (PER DATA, TIPO ECC)
 
     </div>
 
-    <div class="container overflow-auto" style="width: 40%; float: left; max-height: 500px;">
+    <div class="container overflow-auto" style="width: 40%; float: left; max-height: 600px;">
         {% for patient in patients %}
         <!--card che si ripete per ogni report del singolo paziente-->
         <div class="card m-3 shadow-sm">
@@ -30,11 +30,22 @@ SCI SONO FORM PER FILTRARE I DATI (PER DATA, TIPO ECC)
         {% endfor %}
     </div>
 
-    <div class="container" style="width: 60%; float: right; max-height: 500px;">
-        <div class="card shadow-smr" style="width:50%; float:right">
-            <h3>grafichetto ficherrimo</h3>
+    <div class="container" style="width: 60%; float: right; max-height: 600px;">
+        <div class=" shadow-smr p-2 " style="width:50%; height: 300px; float:right">
+            <h4>andamento pressione sanguigna</h4>
         </div>
-        <div class="container" style="width:50%; float:left; border: 1px;"></div>
+        <div class=" shadow-smr p-2 " style="width:50%; height: 300px; float:left">
+            <h3>andamento battito cardiaco</h3>
+        </div>
+        <div class="shadow-smr p-2 " style="width:50%; height: 300px; float:right">
+            <h3>andamento feelings</h3>
+        </div>
+
+        <div class=" shadow-smr p-2" style="width:50%; height: 300px; float:right">
+            <h3>andamento peso</h3>
+        </div>
+
+
 
     </div>
 

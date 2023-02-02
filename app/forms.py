@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, EqualTo
 from wtforms_alchemy import PhoneNumberField
-from datetime import datetime
+from datetime import date, datetime
 
 
 
@@ -19,13 +19,18 @@ Form per Registrazione del dottore
 crea un nuovo record su DB
 TODO: un solo account per numero di telefono
 '''
+
 class RegistrationForm(FlaskForm):
+    
     name        = StringField('Name', validators=[DataRequired()])
     lastname    = StringField('Lastname', validators=[DataRequired()])
     phoneNumber = PhoneNumberField('Phone Number', validators=[DataRequired()], region='IT') #campo numero di telefono
-    password1   = PasswordField('Password', validators=[DataRequired()])
-    password2   = PasswordField('Conferma Password', validators=[DataRequired()]) #controllo per validazione
+    password    = PasswordField('Password', validators=[DataRequired()])
+    password_c  = PasswordField('Conferma Password', validators=[DataRequired(),EqualTo('password', message='le password devono combaciare')]) #controllo per validazione
     submit      = SubmitField('Register')
+
+
+
 
 #TODO:creare altri form per filtrare risultati qua sotto
 
@@ -42,22 +47,33 @@ possible_names = {0:'Giovanni Genovesi',
             6:'MariaGiuseppa Paolina', 
             7:'Paolina Giuseppini'} 
 
-
+'''
+def validate_date(form, field):
+    if datetime(field.data).date() > date.today():
+        raise ValidationError("stai cercando Marty McFly?")
+    #elif form.field.data < date.(year=1900, month=1, day=1):
+    #   raise ValidationError("davvero cerchi un vecchio con una app? dai dai") 
+    print('errore data')
+    return ValidationError
+'''
 class PatientFilters(FlaskForm):
 
-    def validate_date():
-        if PatientFilters.date > datetime.date.today():
-            raise ValidationError("stai cercando Marty McFly?")
-        elif PatientFilters.date < datetime.date(year=1900, month=1, day=1):
-            raise ValidationError("davvero cerchi un vecchio con una app? dai dai") 
-        print('errore data')
-        return ValidationError
-        
-    date        = DateField('data ultimo report', format='%d-%m-%Y', validators=[validate_date]) 
+    date        = DateField  ('data ultimo report', format='%d-%m-%Y') 
     dateOrder   = SelectField('ordina report per data', choices=[(True, 'dal più recente'), (False,'dal meno recente')]) #se true ordine decrescente, se false crescente
     alfabetico  = SelectField('ordine alfabetico', choices=[(True, 'A-Z'), (False,'Z-A')]) #se true ordine decrescente, se false crescente
     byName      = SelectField("inserisci il nome", choices=[(name) for name in possible_names.items()])
     submit      = SubmitField('Cerca')
 
-        
+def validate_on_submit(self):
+            result = super(PatientFilters, self).validate()
+            if (self.date.data>date.today):
+                raise ValidationError("stai cercando Marty McFly?")
+                print ('errore nella data')
+            else:
+                print ('data ok')
+                return result
+
+
+    
+    
       

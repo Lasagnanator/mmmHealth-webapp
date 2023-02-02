@@ -35,6 +35,7 @@ def registration():
     if form.validate_on_submit():
         flash('registration requested for user {}'.format(
             form.name.data))
+        print(form.name.data, form.lastname.data, form.password.data ) 
         return redirect(url_for('index'))
     return render_template('registration.html', title='Registration', form=form) 
 
@@ -44,12 +45,13 @@ def index():
     #inviare la lista di pazienti con dati di base
     #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
     form = PatientFilters()
-    return render_template('index.html', title='profilo doc', patients = patients, form = form)#sostituire patient con dati DB
-    '''
     if form.validate_on_submit():
-        flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
-        return render_template('index.html', title='profilo doc', patients = patients, form = form)
-    '''   
+       # flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
+        print (form.byName.data)
+        print (form.date.data)
+    return render_template('index.html', title='profilo doc', patients = patients, form = form)#sostituire patient con dati DB
+    
+       
     
 
 
