@@ -1,6 +1,8 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport
+from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport, RegistrationPzForm
+import random
+import string
 
 
 patients = {'Giovanni Genovesi',
@@ -36,7 +38,7 @@ def registration():
         flash('registration requested for user {}'.format(
             form.name.data))
         print(form.name.data, form.lastname.data, form.password.data ) 
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('registration.html', title='Registration', form=form) 
 
 
@@ -52,7 +54,15 @@ def index():
     return render_template('index.html', title='profilo doc', patients = patients, form = form)#sostituire patient con dati DB
     
        
-    
+@app.route('/registrazionePz', methods=['GET', 'POST'])
+def registrazionePz():
+    form = RegistrationPzForm()
+    if form.validate_on_submit():
+        pw_autogen = ''.join(random.choice(string.ascii_lowercase) for i in range(8))#da inviare a DB
+        print(pw_autogen)
+        return redirect(url_for('index'))
+    return render_template('registrazionePz.html', title= 'Registrazione nuovo paziente', form= form)
+
 
 
 @app.route('/homePz', methods=['GET', 'POST'])

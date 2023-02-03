@@ -1,16 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField, EmailField
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from wtforms_alchemy import PhoneNumberField
 from datetime import date, datetime
+import hashlib
 
 
 
 
+hash =  input 
 '''form per login entrambi utenti'''
 class LoginForm(FlaskForm):
     username    = StringField('Username', validators=[DataRequired()])
-    password    = PasswordField('Password', validators=[DataRequired()])
+    password    = hashlib.sha512( str(PasswordField('Password', validators=[DataRequired()])).encode("utf-8") ).hexdigest()
     remember_me = BooleanField('Remember Me')
     submit      = SubmitField('Sign In')
 
@@ -22,14 +24,21 @@ TODO: un solo account per numero di telefono
 
 class RegistrationForm(FlaskForm):
     
-    name        = StringField('Nome', validators=[DataRequired(), Length(min=5, max=255)])
-    lastname    = StringField('Cognome', validators=[DataRequired(), Length(min=5, max=255)])
+    name        = StringField('Nome', validators=[DataRequired(), Length(min=1, max=50)])
+    lastname    = StringField('Cognome', validators=[DataRequired(),Length(min=1, max=50)])
     phoneNumber = PhoneNumberField('Numero di telefono', validators=[DataRequired()], region='IT') 
     password    = PasswordField('Password', validators=[DataRequired(),Length(min=5, max=64)])
     password_c  = PasswordField('Conferma Password', validators=[DataRequired(),EqualTo('password', message='le password devono combaciare')]) 
-    submit      = SubmitField('Register')
+    submit      = SubmitField('Registrati')
 
-
+class RegistrationPzForm(FlaskForm):
+    
+    name        = StringField('Nome', validators=[DataRequired(), Length(min=1, max=255)])
+    lastname    = StringField('Cognome', validators=[DataRequired(), Length(min=1, max=255)])
+    sex         = SelectField('Genere', choices=[('Maschio', 'Maschio'), ('Femmina','Femmina')])  #scelta restituisce un boolean 
+    birthdate   = DateField  ('Data di nascita', validators=[DataRequired()])
+    email       = EmailField ('Email', validators=[DataRequired()]) 
+    submit      = SubmitField('Registrati')
 
 
 #TODO:creare altri form per filtrare risultati qua sotto

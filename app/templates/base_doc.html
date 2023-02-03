@@ -7,23 +7,28 @@ richiamata sempre quando il doc ha fatto il login-->
 
 
 <!--barra in alto con profilo del medico-->
-<div>   
-    <ul class="nav justify-content-center p-3 shadow-sm bg-body rounded">
-        <li class="nav-item  p-2">
-          <p>Nome doc<br>
-            Cognome doc</p>
-        </li>
-        <li class="nav-item p-2">
-          <p>numero pazienti: <br> tot</p>
-        </li>
-        <li class="nav-item p-2">
-          <p>id: <br> 3445</p>
-        </li>
-        <li class="nav-item p-2">
-          <p>tel: <br> 123 334224543</p>
-        </li>
-      </ul>
-
+<div>
+  <ul class="nav justify-content-center p-3 shadow-sm bg-body rounded">
+    <li class="nav-item  p-2">
+      <p>Nome doc<br>
+        Cognome doc</p>
+    </li>
+    <li class="nav-item p-2">
+      <p>numero pazienti: <br> tot</p>
+    </li>
+    <li class="nav-item p-2">
+      <p>id: <br> 3445</p>
+    </li>
+    <li class="nav-item p-2">
+      <p>tel: <br> 123 334224543</p>
+    </li>
+    <li>
+      <span class="justify-content-center pt-3 d-block">
+        <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button"
+            href="{{url_for('registrazionePz')}}">nuovo paziente</a></p>
+      </span>
+    </li>
+  </ul>
 </div>
 
 {% block index %}
