@@ -1,5 +1,7 @@
 from flask import render_template, flash, redirect, url_for
-from app import app
+from app import app, db
+from app.utils import hash512
+from app.models import Login_patient, Login_doctor
 from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport, RegistrationPzForm
 import random
 import string
@@ -27,7 +29,11 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        hashedpw =  hashlib.sha512( str( form.password.data ).encode("utf-8") ).hexdigest()
+        hashedpw =  hash512(form.password.data)
+        print(hashedpw)
+        #query per tirare giu la password del doc che fa il login da db
+        passwordDoc = db.session.execute(db.select(Login_doctor.password).where(Login_doctor.username == form.username.data )).first()
+        #print(passwordDoc[0])#aggiungere lo 0 perchè passwordDoc è una tupla e io devo accedere al primo valore
         return redirect(url_for('index'))
     return render_template('login.html',  title='Sign In', form=form)
 

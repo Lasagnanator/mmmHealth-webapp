@@ -2,26 +2,28 @@ from datetime import datetime
 from app import db
 
 
-class User(db.Model):
-     id = db.Column(db.Integer, primary_key=True)
-     username = db.Column(db.String(64), index=True, unique=True)
-     email = db.Column(db.String(120), index=True, unique=True)
-     password_hash = db.Column(db.String(128))
-     posts = db.relationship('Post', backref='author', lazy='dynamic')
+# Vedere come impostare le foreing key
+# da integrare in my_site
+class Login_patient(db.Model):
+    __tablename__ = 'login_patient'
+    patient_id    = db.Column(db.Integer, primary_key=True)
+    username      = db.Column(db.String(64), index=True, unique=True)
+    password      = db.Column(db.String(128))
 
-     def __repr__(self):
-        return '<User {}>'.format(self.username)
+    def __repr__(self) -> str:
+        return "<Login_patient(patient_id='{}', username='{}', password_hash='{}')>"\
+               .format(self.patient_id, self.username, self.password)
 
 
-class Post(db.Model):
-     id = db.Column(db.Integer, primary_key=True)
-     body = db.Column(db.String(140))
-     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class Login_doctor(db.Model):
+    __tablename__ = 'login_doctor'
+    doctor_id     = db.Column(db.Integer, primary_key=True)
+    username      = db.Column(db.String(64), index=True, unique=True)
+    password      = db.Column(db.String(128))
 
-     def __repr__(self):
-         return '<Post {}>'.format(self.body)
-
+    def __repr__(self) -> str:
+        return "<Login_doctor(doctor_id='{}', username='{}', password_hash='{}')>"\
+               .format(self.doctor_id, self.username, self.password)
 
 # da integrare in my_site
 '''
