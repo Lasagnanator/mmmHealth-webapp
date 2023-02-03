@@ -3,7 +3,7 @@ from app import app
 from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport, RegistrationPzForm
 import random
 import string
-
+import hashlib
 
 patients = {'Giovanni Genovesi',
             'Giorgio De Davide',
@@ -16,7 +16,6 @@ patients = {'Giovanni Genovesi',
 @app.route('/')
 def root():
     return redirect(url_for('landing'))
-
 @app.route('/landing')
 def landing():
     return render_template('landing.html')
@@ -28,9 +27,11 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
+        hashedpw =  hashlib.sha512( str( form.password.data ).encode("utf-8") ).hexdigest()
         return redirect(url_for('index'))
     return render_template('login.html',  title='Sign In', form=form)
-    
+
+
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     form = RegistrationForm()

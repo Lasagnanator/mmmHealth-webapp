@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateF
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from wtforms_alchemy import PhoneNumberField
 from datetime import date, datetime
-import hashlib
+
 
 
 
@@ -12,7 +12,7 @@ hash =  input
 '''form per login entrambi utenti'''
 class LoginForm(FlaskForm):
     username    = StringField('Username', validators=[DataRequired()])
-    password    = hashlib.sha512( str(PasswordField('Password', validators=[DataRequired()])).encode("utf-8") ).hexdigest()
+    password    = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit      = SubmitField('Sign In')
 
