@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, PatientFilters, RegistrationForm
+from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport
 
 
 patients = {'Giovanni Genovesi',
@@ -57,14 +57,23 @@ def index():
 
 @app.route('/homePz', methods=['GET', 'POST'])
 def homePz():
+    
     #visualizzazione tutti dati del paziente selezionato
     return render_template('homePz.html',title='home di -nome pazinte-', patients= patients)#sostituire patient con dati DB
 
 
 @app.route('/reportPZ', methods=['GET', 'POST'])
 def reportPz():
-    #visualizzazione tutti dati del paziente selezionato
-    return render_template('reportPZ.html',title='report di -nome pazinte-')
+    form = DoctorReport()
+    conferma= " "
+    if form.validate_on_submit():
+        print(form.freeField.data)
+        conferma = "documento inviato"
+        print(conferma)
+        return conferma
+    print(form.freeField.data)
+
+    return render_template('reportPZ.html',title='report di -nome pazinte-', conferma = conferma, form = form)
 
 
 

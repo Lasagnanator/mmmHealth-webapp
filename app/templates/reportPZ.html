@@ -10,15 +10,24 @@
 
 <h2>report del giorno {data}</h2>
 
-<p>feelings 
+<p>feelings
     weigth
     notes
     pressure (max e min)
     ecg
     SpO2
-    
+
 </p>
 
 <p>calcolo trend? se positivo o negativo</p>
+
+<div class="container">
+    <p>{{ form.freeField.label }}</p>
+    <p>{{ conferma }}</p>
+    <div class="input-group">
+        <p class="form-control" aria-label="With textarea">{{ form.freeField }}</p>
+        <p class="text-center colored">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
+    </div>
+</div>
 
 {% endblock %}

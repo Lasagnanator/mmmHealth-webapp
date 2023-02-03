@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
-from wtforms.validators import DataRequired, ValidationError, EqualTo
+from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from wtforms_alchemy import PhoneNumberField
 from datetime import date, datetime
 
@@ -22,11 +22,11 @@ TODO: un solo account per numero di telefono
 
 class RegistrationForm(FlaskForm):
     
-    name        = StringField('Name', validators=[DataRequired()])
-    lastname    = StringField('Lastname', validators=[DataRequired()])
-    phoneNumber = PhoneNumberField('Phone Number', validators=[DataRequired()], region='IT') #campo numero di telefono
-    password    = PasswordField('Password', validators=[DataRequired()])
-    password_c  = PasswordField('Conferma Password', validators=[DataRequired(),EqualTo('password', message='le password devono combaciare')]) #controllo per validazione
+    name        = StringField('Nome', validators=[DataRequired(), Length(min=5, max=255)])
+    lastname    = StringField('Cognome', validators=[DataRequired(), Length(min=5, max=255)])
+    phoneNumber = PhoneNumberField('Numero di telefono', validators=[DataRequired()], region='IT') 
+    password    = PasswordField('Password', validators=[DataRequired(),Length(min=5, max=64)])
+    password_c  = PasswordField('Conferma Password', validators=[DataRequired(),EqualTo('password', message='le password devono combaciare')]) 
     submit      = SubmitField('Register')
 
 
@@ -73,6 +73,12 @@ def validate_on_submit(self):
                 print ('data ok')
                 return result
 
+
+#campo note libere del medico 
+#da implementare
+class DoctorReport(FlaskForm):
+     freeField   = StringField ('campo libero', validators=[Length(min=0,max=3000)])
+     submit      = SubmitField('Salva')
 
     
     

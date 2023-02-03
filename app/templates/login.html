@@ -25,13 +25,12 @@
             </span>
             <p class="text-center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
 
-            <!--TODO: finire di stilizzare il pulsante e copiare nella pagina di registrazone-->
             <p class="text-center colored">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
         </form>
         <span class="justify-content-center pt-3 d-block">
-            <p class="text-center"> not a user yet?</p>
+            <p class="text-center"> non sei ancora registrato?</p>
             <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button"
-                    href="{{url_for('registration')}}">click here for registration page</a></p>
+                    href="{{url_for('registration')}}">clicca qui per la pagina di registrazione</a></p>
         </span>
     </div>
 
