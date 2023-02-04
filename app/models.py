@@ -62,7 +62,6 @@ class Report(db.Model):
     dia = db.Column(db.Integer, nullable=False)
     bpm = db.column(db.Integer, nullable=False)
     spo2 = db.Column(db.Integer, nullable=False)
-    #TODO: controllare se serve ancora la colonna ECG, visto che non è utilizzata ed è un mega smeno da gestire in quanto array
     date = db.Column(db.Date, nullable=False)
     
     def __repr__(self):
