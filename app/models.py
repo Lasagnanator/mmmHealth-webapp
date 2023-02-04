@@ -7,8 +7,8 @@ from app import db
 class Login_patient(db.Model):
     __tablename__ = 'login_patient'
     patient_id    = db.Column(db.Integer, primary_key=True)
-    username      = db.Column(db.String(64), index=True, unique=True)
-    password      = db.Column(db.String(128))
+    username      = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    password      = db.Column(db.String(128), nullable=False)
 
     def __repr__(self) -> str:
         return "<Login_patient(patient_id='{}', username='{}', password_hash='{}')>"\
@@ -18,69 +18,53 @@ class Login_patient(db.Model):
 class Login_doctor(db.Model):
     __tablename__ = 'login_doctor'
     doctor_id     = db.Column(db.Integer, primary_key=True)
-    username      = db.Column(db.String(64), index=True, unique=True)
-    password      = db.Column(db.String(128))
+    username      = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    password      = db.Column(db.String(128), nullable=False)
 
     def __repr__(self) -> str:
         return "<Login_doctor(doctor_id='{}', username='{}', password_hash='{}')>"\
                .format(self.doctor_id, self.username, self.password)
 
-# da integrare in my_site
-'''
-class login_patient(db.Model):
-    patient_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
-
-    def __repr__(self):
-        return '<login_patient {}>'.format(self.username) #cosa fa?
-
-class login_doctor(db.Model):
-    doctor_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
-
-    def __repr__(self):
-        return '<login_doctor {}>'.format(self.username) #cosa fa?
-
-class patient(db.Model):
-    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'))
-    email = db.Column(db.String(64))
-    name = db.Column(db.String(64))
-    lastname = db.Column(db.String(64))
-    birthdate = db.Column(db.Date)
-    gender = db.Column(db.String(64))
-    height = db.Column(db.Integer)
+class Patient(db.Model):
+    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'), primary_key=True)
+    doctor_id = db.Column(db.String(64), db.ForeignKey('login_doctor.id'), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
+    lastname = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), nullable=False)
+    birthday = db.Column(db.Date, nullable=False)
+    sex = db.Column(db.String(64), nullable=False)
+    height = db.Column(db.Integer, nullable=False)
+    medical_plan = db.Column(db.String(64))
     last_access = db.Column(db.Date)
     last_visit = db.Column(db.Date)
-    last_report = db.Column(db.Date, db.ForeignKey('Report.id'))
-    doctor_id = db.Column(db.String(64), db.ForeignKey('Doctor.id'))
 
     def __repr__(self):
-        return '<patient {}>'.format(self.patient_id) #cosa fa?
+        return "<Patient (name='{}', lastname='{}')>"\
+               .format(self.name, self.lastname)
 
-class doctor(db.Model):
-    doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.id'))
-    name = db.Column(db.String(64))
-    lastname = db.Column(db.String(64))
-    phone_number = db.Column(db.String(64))
+class Doctor(db.Model):
+    doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.id'), primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+    lastname = db.Column(db.String(64), nullable=False)
+    phone_number = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
-        return '<doctor {}>'.format(self.doctor_id) #cosa fa?
+        return "<Doctor (name='{}', lastname='{}')>"\
+               .format(self.name, self.lastname)
 
-class patient(db.Model):
-    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'))
-    fellings = db.Column(db.Integer)
-    weight = db.Column(db.Integer)
+class Report(db.Model):
+    report_id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'), nullable=False)
+    feelings = db.Column(db.Integer, nullable=False)
+    weight = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.String(200))
-    minpressure = db.Column(db.Integer)
-    maxpressure = db.Column(db.Integer)
-    ecg = db.Column() # di cosa?
-    spo2 = db.Column() # di cosa?
-    date = db.Column(db.Date)
-    
-    last_report = db.Column(db.Date, db.ForeignKey('Report.id'))
+    sys = db.Column(db.Integer, nullable=False)
+    dia = db.Column(db.Integer, nullable=False)
+    bpm = db.column(db.Integer, nullable=False)
+    spo2 = db.Column(db.Integer, nullable=False)
+    #TODO: controllare se serve ancora la colonna ECG, visto che non è utilizzata ed è un mega smeno da gestire in quanto array
+    date = db.Column(db.Date, nullable=False)
     
     def __repr__(self):
-        return '<patient {}>'.format(self.patient_id) #cosa fa?
-'''
+        return "<Report (patient_id='{}', report_id='{}')>"\
+               .format(self.patient_id)
