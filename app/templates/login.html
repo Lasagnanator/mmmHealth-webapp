@@ -22,6 +22,11 @@
                 {% for error in form.password.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
+                {% if error != '' %}
+                <span style="color: red;">
+                    <p>{{ error }}</p>
+                </span>
+                {% endif %}
             </span>
             <p class="text-center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
 

@@ -46,7 +46,7 @@ class Doctor(db.Model):
     doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.id'), primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     lastname = db.Column(db.String(64), nullable=False)
-    phone_number = db.Column(db.String(64), nullable=False)
+    phonenumber = db.Column(db.String(64), nullable=False)
 
     def __repr__(self):
         return "<Doctor (name='{}', lastname='{}')>"\
@@ -60,7 +60,7 @@ class Report(db.Model):
     notes = db.Column(db.String(200))
     sys = db.Column(db.Integer, nullable=False)
     dia = db.Column(db.Integer, nullable=False)
-    bpm = db.column(db.Integer, nullable=False)
+    bpm = db.column(db.Integer, nullable=False) #-----------ROMPE TUTTO IL SITO!!-----------
     spo2 = db.Column(db.Integer, nullable=False)
     date = db.Column(db.Date, nullable=False)
     

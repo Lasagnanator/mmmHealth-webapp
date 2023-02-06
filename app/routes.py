@@ -1,12 +1,12 @@
-from flask import render_template, flash, redirect, url_for
-from app import app, db
-from app.utils import hash512
-from app.models import Login_patient, Login_doctor
-from app.forms import LoginForm, PatientFilters, RegistrationForm, DoctorReport, RegistrationPzForm
+from flask import render_template, flash, redirect, url_for, session
+from app import app
+import app.forms as f
+import app.query as q
 import random
 import string
-import hashlib
 
+
+#TODO: eliminare quando riusciamo ad importare lista pazienti
 patients = {'Giovanni Genovesi',
             'Giorgio De Davide',
             'Pier Paolo Paulari',
@@ -25,22 +25,23 @@ def landing():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = f.LoginForm()
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        hashedpw =  hash512(form.password.data)
-        print(hashedpw)
-        #query per tirare giu la password del doc che fa il login da db
-        passwordDoc = db.session.execute(db.select(Login_doctor.password).where(Login_doctor.username == form.username.data )).first()
-        #print(passwordDoc[0])#aggiungere lo 0 perchè passwordDoc è una tupla e io devo accedere al primo valore
-        return redirect(url_for('index'))
-    return render_template('login.html',  title='Sign In', form=form)
+        check = q.passwdcheck(form.password.data, form.username.data )
+        if check:
+            doctor_id = q.id_doctor(form.username.data)
+            session['doctor_id'] = doctor_id
+            return redirect(url_for('index'))
+        else: 
+            return render_template('login.html',  title='Sign In', form=form, error = 'password sbagliata')
+    return render_template('login.html',  title='Sign In', form=form, error= '')
 
 
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
-    form = RegistrationForm()
+    form = f.RegistrationForm()
     if form.validate_on_submit():
         flash('registration requested for user {}'.format(
             form.name.data))
@@ -51,19 +52,24 @@ def registration():
 
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    doctor_id = session.get('doctor_id', None)
+    doctor_data=q.select_all(doctor_id)
     #inviare la lista di pazienti con dati di base
-    #TODO: controllare perché non mette i nomi ripetuti e nell'ordine che vuole (tipo se ci sono 2 record Luca non li mette)
-    form = PatientFilters()
+    form = f.PatientFilters()
     if form.validate_on_submit():
+        patient_list= q.doc_patients(doctor_id)
        # flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
-        print (form.byName.data)
-        print (form.date.data)
-    return render_template('index.html', title='profilo doc', patients = patients, form = form)#sostituire patient con dati DB
+    print (form.byName.data)
+    return render_template('index.html', title='profilo doc', 
+                           patients = patients, #sostituire patient con dati DB
+                           form = form,
+                           doctor_data = doctor_data)
     
        
 @app.route('/registrazionePz', methods=['GET', 'POST'])
 def registrazionePz():
-    form = RegistrationPzForm()
+    doctor_id = session.get('doctor_id', None)
+    form = f.RegistrationPzForm()
     if form.validate_on_submit():
         pw_autogen = ''.join(random.choice(string.ascii_lowercase) for i in range(8))#da inviare a DB
         print(pw_autogen)
@@ -74,15 +80,16 @@ def registrazionePz():
 
 @app.route('/homePz', methods=['GET', 'POST'])
 def homePz():
-    
+    doctor_id = session.get('doctor_id', None)
     #visualizzazione tutti dati del paziente selezionato
     return render_template('homePz.html',title='home di -nome pazinte-', patients= patients)#sostituire patient con dati DB
 
 
 @app.route('/reportPZ', methods=['GET', 'POST'])
 def reportPz():
-    form = DoctorReport()
-    conferma= " "
+    doctor_id = session.get('doctor_id', None)
+    form = f.DoctorReport()
+    conferma= ""
     if form.validate_on_submit():
         print(form.freeField.data)
         conferma = "documento inviato"
