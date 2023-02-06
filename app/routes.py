@@ -5,16 +5,6 @@ import app.query as q
 import random
 import string
 
-
-#TODO: eliminare quando riusciamo ad importare lista pazienti
-patients = {'Giovanni Genovesi',
-            'Giorgio De Davide',
-            'Pier Paolo Paulari',
-            'Paolo Pier DePieri',
-            'Luca Nervi',
-            'MariaGiuseppa Paolina', 
-            'Paolina Giuseppini'} 
-
 @app.route('/')
 def root():
     return redirect(url_for('landing'))
@@ -53,17 +43,16 @@ def registration():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     doctor_id = session.get('doctor_id', None)
-    doctor_data=q.select_all(doctor_id)
-    #inviare la lista di pazienti con dati di base
+    doctor_data=q.select_all_doctor(doctor_id)
     form = f.PatientFilters()
-    if form.validate_on_submit():
-        patient_list= q.doc_patients(doctor_id)
+    patient_list= q.doc_patients(doctor_id)
+    #if form.validate_on_submit():
+        
        # flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query
-    print (form.byName.data)
     return render_template('index.html', title='profilo doc', 
-                           patients = patients, #sostituire patient con dati DB
-                           form = form,
-                           doctor_data = doctor_data)
+                           form         = form,
+                           doctor_data  = doctor_data,
+                           patient_list = patient_list)
     
        
 @app.route('/registrazionePz', methods=['GET', 'POST'])
@@ -77,17 +66,28 @@ def registrazionePz():
     return render_template('registrazionePz.html', title= 'Registrazione nuovo paziente', form= form)
 
 
-
-@app.route('/homePz', methods=['GET', 'POST'])
-def homePz():
-    doctor_id = session.get('doctor_id', None)
+'''
+recupero della variabile patient_id da index
+'''
+@app.route('/<patient_id>/homePz', methods=['GET', 'POST'])
+def homePz(patient_id):
+    #TODO: aggiungere dati del doc in alto a dx
+    doctor_id  = session.get('doctor_id', None) 
+    session['patient_id'] = patient_id
     #visualizzazione tutti dati del paziente selezionato
-    return render_template('homePz.html',title='home di -nome pazinte-', patients= patients)#sostituire patient con dati DB
+    patient_data = q.select_all_patient(patient_id)
+    report_list  = q.reports(patient_id) 
+    
+    return render_template('homePz.html',title='home di '+ patient_data.lastname+' '+patient_data.name, patient_data = patient_data, report_list = report_list)
 
 
-@app.route('/reportPZ', methods=['GET', 'POST'])
-def reportPz():
-    doctor_id = session.get('doctor_id', None)
+@app.route('/<report_id>/reportPz', methods=['GET', 'POST'])
+def reportPz(report_id):
+    patient_id  = session.get('patient_id', None)
+
+    report_data = q.report_data(report_id)  
+    patient_data= q.select_all_patient(patient_id)
+
     form = f.DoctorReport()
     conferma= ""
     if form.validate_on_submit():
@@ -97,7 +97,11 @@ def reportPz():
         return conferma
     print(form.freeField.data)
 
-    return render_template('reportPZ.html',title='report di -nome pazinte-', conferma = conferma, form = form)
+    return render_template('reportPZ.html',title='report di '+ patient_data.lastname+' '+patient_data.name, 
+                           conferma     = conferma, 
+                           form         = form, 
+                           report_data  = report_data,
+                           patient_data = patient_data)
 
 
 

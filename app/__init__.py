@@ -14,8 +14,9 @@ app.config.from_object(Config)
 try:
     db = SQLAlchemy(app)
     migrate = Migrate(app, db)
-except:
-    db = 'bad request!', 400
+except Exception:
+    print('mancata connessione al databasse')
+    pass 
 
 
 #BOOTSTRAPFLASK --> framework per usare bootstrap su flask

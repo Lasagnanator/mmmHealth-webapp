@@ -50,15 +50,18 @@ VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
 
 <div class="pt-3">
   <!--card che si ripete per il numero di pazienti -->
-  {% for patient in patients %}
+  {% for patient in patient_list: %}
   <div class="card shadow-sm m-3">
     <div class="card-header">
-      nome: {{ patient }}
+      <p>
+        {{ patient[0].lastname }} {{ patient[0].name }}
+      </p>
     </div>
     <div class="card-body">
-      <h5 class="card-title">Info paziente</h5>
-      <p class="card-text"> campo libero del medico </p>
-      <a href="{{url_for('homePz')}}" class="btn btn-primary">vai alla scheda del paziente</a>
+      <h5 class="card-title">note</h5>
+      <p class="card-text"> {{ patient[0].medical_plan }}</p>
+      <a href="{{ url_for('homePz', patient_id = patient[0].patient_id)}}" class="btn btn-primary">vai alla
+        scheda del paziente</a>
     </div>
   </div>
   {% endfor %}

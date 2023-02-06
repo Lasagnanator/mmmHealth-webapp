@@ -17,19 +17,31 @@ def id_doctor(username):
     return result[0]
 
 #recupera tutti i dati del medico dato un id
-#da rivedere appena le tables sono pronte
-def select_all(doctor_id):
+def select_all_doctor(doctor_id):
     result = db.session.execute(db.select(Doctor).where(Doctor.doctor_id == doctor_id )).first()
     return result[0]
 
 #recupera la lista degli id dei pazienti dato un id di un medico
 def doc_patients(doctor_id):
-    result = db.session.execute(db.select(Patient.patient_id).where(Login_doctor.doctor_id == Patient.doctor_id )).all() 
-    #TODO: teest per vedere come tirare fuoir i dati come voglio io
-    for patient in result:
-        print (result[patient])
+    result = db.session.execute(db.select(Patient).where( Patient.doctor_id  == doctor_id)).all() 
+    return result
+
+#recupera tutti i dati del paziente dato un id
+def select_all_patient(patient_id):
+    result = db.session.execute(db.select(Patient).where(Patient.patient_id == patient_id)).first()
     return result[0]
-    
+
+#recupera tutti i report dato l'id di un paziente
+def reports(patient_id):
+    result =  db.session.execute(db.select(Report).where(Report.patient_id == patient_id)).all()
+    return result
+
+#recupera i dati di un report dato un id
+def report_data(report_id):
+    result =  db.session.execute(db.select(Report).where(Report.report_id == report_id)).first()
+    return result[0]
+
+
 ######### ########## ########quey per filtrare i pazienti ######### ######### #########
 
 #pazienti in ordine alfabetico
