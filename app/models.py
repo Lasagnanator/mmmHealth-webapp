@@ -60,7 +60,7 @@ class Report(db.Model):
     notes = db.Column(db.String(200))
     sys = db.Column(db.Integer, nullable=False)
     dia = db.Column(db.Integer, nullable=False)
-    bpm = db.column(db.Integer, nullable=False) #-----------ROMPE TUTTO IL SITO!!-----------
+    bpm = db.column(db.Integer)
     spo2 = db.Column(db.Integer, nullable=False)
     date = db.Column(db.Date, nullable=False)
     
