@@ -67,7 +67,9 @@ def validate_date(form, field):
 '''
 class PatientFilters(FlaskForm):
 
-    byDate      = DateField('data report', format='%d-%m-%Y') #solo report di data selezionata
+    byDate      = DateField('data report'
+                            #, format='%d-%m-%Y'
+                            ) #solo report di data selezionata
     dateOrder   = SelectField('ordina report per data', choices=[(True, 'dal più recente'), (False,'dal meno recente')]) #se true ordine decrescente, se false crescente
     alfabetico  = SelectField('ordine alfabetico', choices=[(True, 'A-Z'), (False,'Z-A')]) #se true ordine decrescente, se false crescente
     byName      = SelectField("inserisci il nome", choices=[(name) for name in possible_names.items()])
