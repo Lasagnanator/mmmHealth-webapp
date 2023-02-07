@@ -57,13 +57,13 @@ class Report(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'), nullable=False)
     feelings = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
-    notes = db.Column(db.String(200))
     sys = db.Column(db.Integer, nullable=False)
     dia = db.Column(db.Integer, nullable=False)
-    bpm = db.column(db.Integer)
+    bpm = db.Column(db.Integer, nullable=False)
     spo2 = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.String(200))
     date = db.Column(db.Date, nullable=False)
     
     def __repr__(self):
         return "<Report (patient_id='{}', report_id='{}')>"\
-               .format(self.patient_id)
+               .format(self.patient_id, self.report_id)
