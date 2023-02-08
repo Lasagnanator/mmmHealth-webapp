@@ -5,7 +5,8 @@ from flask_bootstrap import Bootstrap5
 from flask import Flask
 from config import Config
 import app.utils as u
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user 
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -27,9 +28,9 @@ except Exception:
 bootstrap = Bootstrap5(app)
 
 
-from app import routes, models
+from app import routes
+from app import models as m
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = "doc.luca"
-    return user
+    return m.Login_doctor.get(id)

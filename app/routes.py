@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for, session
 from flask_login import LoginManager, login_user, current_user, UserMixin, login_required
 from app import app
 import app.forms as f
+from app import models as m
 import app.query as q
 import random, string
 
@@ -22,7 +23,8 @@ def login():
         if check:
             doctor_id = q.id_doctor(form.username.data)
             session['doctor_id'] = doctor_id
-            login_user(q.id_doctor(form.username.data), remember=form.remember_me.data)
+            login_doctor = m.Login_doctor(username = form.username.data, password = form.password.data, id=doctor_id)
+            login_user(login_doctor, remember=form.remember_me.data)
             return redirect(url_for('index'))
         else: 
             return render_template('login.html',  title='Sign In', form=form, error = 'password sbagliata')
