@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session
-from flask_login import LoginManager, login_user, current_user, UserMixin
+from flask_login import LoginManager, login_user, current_user, UserMixin, login_required
 from app import app
 import app.forms as f
 import app.query as q
@@ -41,6 +41,7 @@ def registration():
 
 
 @app.route('/index', methods=['GET', 'POST'])
+@login_required
 def index():
     doctor_id = session.get('doctor_id', None)
     doctor_data = q.select_all_doctor(doctor_id)
@@ -58,6 +59,7 @@ def index():
     
        
 @app.route('/registrazionePz', methods=['GET', 'POST'])
+@login_required
 def registrazionePz():
     doctor_id = session.get('doctor_id', None)
     form = f.RegistrationPzForm()
@@ -72,6 +74,7 @@ def registrazionePz():
 recupero della variabile patient_id da index
 '''
 @app.route('/<patient_id>/homePz', methods=['GET', 'POST'])
+@login_required
 def homePz(patient_id):
     #TODO: aggiungere dati del doc in alto a dx
     doctor_id  = session.get('doctor_id', None) 
@@ -84,6 +87,7 @@ def homePz(patient_id):
 
 
 @app.route('/<report_id>/reportPz', methods=['GET', 'POST'])
+@login_required
 def reportPz(report_id):
     patient_id  = session.get('patient_id', None)
 
