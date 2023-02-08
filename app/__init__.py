@@ -27,10 +27,8 @@ except Exception:
 #BOOTSTRAPFLASK --> framework per usare bootstrap su flask
 bootstrap = Bootstrap5(app)
 
-
-from app import routes
 from app import models as m
 
 @login_manager.user_loader
-def load_user(user_id):
-    return m.Login_doctor.get(id)
+def load_user(doctor_id):
+    return m.Login_doctor.get(doctor_id)

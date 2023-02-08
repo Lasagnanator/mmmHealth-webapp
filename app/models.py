@@ -39,8 +39,7 @@ class Patient(db.Model):
     last_visit = db.Column(db.Date)
 
     def __repr__(self):
-        return "<Patient (name='{}', lastname='{}')>"\
-               .format(self.name, self.lastname)
+        return "<Patient (name='{}', lastname='{}')>".format(self.name, self.lastname)
 
 class Doctor(db.Model):
     doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.id'), primary_key=True)
@@ -65,5 +64,4 @@ class Report(db.Model):
     date = db.Column(db.Date, nullable=False)
     
     def __repr__(self):
-        return "<Report (patient_id='{}', report_id='{}')>"\
-               .format(self.patient_id, self.report_id)
+        return "<Report (patient_id='{}', report_id='{}')>".format(self.patient_id, self.report_id)     
