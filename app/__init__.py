@@ -28,6 +28,7 @@ except Exception:
 bootstrap = Bootstrap5(app)
 
 from app import models as m
+from app import routes
 
 @login_manager.user_loader
 def load_user(doctor_id):
