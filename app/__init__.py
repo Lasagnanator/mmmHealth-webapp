@@ -5,10 +5,14 @@ from flask_bootstrap import Bootstrap5
 from flask import Flask
 from config import Config
 import app.utils as u
+from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 '''gestione errore mancata connessione al DB'''
 try:
@@ -25,3 +29,7 @@ bootstrap = Bootstrap5(app)
 
 from app import routes, models
 
+@login_manager.user_loader
+def load_user(user_id):
+    user = "doc.luca"
+    return user

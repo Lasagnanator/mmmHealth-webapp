@@ -1,4 +1,5 @@
 from flask import render_template, flash, redirect, url_for, session
+from flask_login import LoginManager, login_user, current_user, UserMixin
 from app import app
 import app.forms as f
 import app.query as q
@@ -11,7 +12,6 @@ def root():
 def landing():
     return render_template('landing.html')
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = f.LoginForm()
@@ -22,6 +22,7 @@ def login():
         if check:
             doctor_id = q.id_doctor(form.username.data)
             session['doctor_id'] = doctor_id
+            login_user(q.id_doctor(form.username.data), remember=form.remember_me.data)
             return redirect(url_for('index'))
         else: 
             return render_template('login.html',  title='Sign In', form=form, error = 'password sbagliata')
