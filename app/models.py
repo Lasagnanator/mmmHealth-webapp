@@ -26,8 +26,8 @@ class Login_doctor(db.Model):
                .format(self.doctor_id, self.username, self.password)
 
 class Patient(db.Model):
-    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'), primary_key=True)
-    doctor_id = db.Column(db.String(64), db.ForeignKey('login_doctor.id'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.patient_id'), primary_key=True)
+    doctor_id = db.Column(db.String(64), db.ForeignKey('login_doctor.doctor_id'), nullable=False)
     name = db.Column(db.String(64), nullable=False)
     lastname = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), nullable=False)
@@ -43,7 +43,7 @@ class Patient(db.Model):
                .format(self.name, self.lastname)
 
 class Doctor(db.Model):
-    doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.id'), primary_key=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('login_doctor.doctor_id'), primary_key=True)
     name = db.Column(db.String(64), nullable=False)
     lastname = db.Column(db.String(64), nullable=False)
     phonenumber = db.Column(db.String(64), nullable=False)
@@ -54,7 +54,7 @@ class Doctor(db.Model):
 
 class Report(db.Model):
     report_id = db.Column(db.Integer, primary_key=True)
-    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.id'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('login_patient.patient_id'), nullable=False)
     feelings = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
     sys = db.Column(db.Integer, nullable=False)

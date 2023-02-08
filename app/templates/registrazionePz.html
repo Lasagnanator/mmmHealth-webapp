@@ -27,11 +27,30 @@
             </span>
             <span>
                 <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>
                     <!--sex  BOOLEAN-->
                     {{ form.sex.label }}<br>
                     {{ form.sex }}
                 </p>
                 {% for error in form.sex.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+            </span>
+            <span>
+                <p>
+                    <!--altezza  INT-->
+                    {{ form.height.label }}<br>
+                    {{ form.height }}
+                </p>
+                {% for error in form.height.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
 

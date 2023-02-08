@@ -1,6 +1,12 @@
 from app import db
 from app.models import Login_doctor, Doctor, Report, Patient
 from app.utils import hash512
+import app.models as m
+from datetime import datetime
+
+
+
+
 
 #controlla se la password inserita coincide con quella inserita nel DB con quell'username
 def passwdcheck(password: str, username: str) -> bool:
@@ -40,6 +46,40 @@ def reports(patient_id):
 def report_data(report_id):
     result =  db.session.execute(db.select(Report).where(Report.report_id == report_id)).first()
     return result[0]
+
+######### ########## ########quey per registrare medico e paziente ######### ######### #########
+
+def new_doctor(form):
+    password = hash512(form.password.data)
+    phonenumber=str(form.phoneNumber.data)
+    login_doctor = m.Login_doctor(username = form.username.data, password = password)
+    print (form.name.data)
+    db.session.flush()
+    db.session.add(login_doctor)
+    db.session.commit()
+    bean_doctor  = m.Doctor(doctor_id = login_doctor.doctor_id, name = form.name.data, lastname = form.lastname.data, phonenumber=phonenumber)
+    db.session.add(bean_doctor)
+    db.session.commit()
+
+
+def new_patient(form, doctor_id, password):
+
+    db.session.flush()
+    login_patient = m.Login_patient(username= form.username.data, password= password)
+    db.session.add(login_patient)
+    db.session.commit()
+    birthday= form.birthdate.data
+    bean_patient = m.Patient(patient_id= login_patient.patient_id, 
+                            name = form.name.data, 
+                            lastname= form.lastname.data, 
+                            birthday=birthday.strftime('%Y-%m-%d'),
+                            sex= form.sex.data, 
+                            height=form.height.data, 
+                            doctor_id=doctor_id,
+                            email= form.email.data)
+    db.session.add(bean_patient)
+    db.session.commit()
+    
 
 
 ######### ########## ########quey per filtrare i pazienti ######### ######### #########

@@ -37,7 +37,7 @@
             <a class="nav-link active" aria-current="page" href="{{url_for('landing')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('index')}}">index</a>
+            <a class="nav-link" href="{{url_for('index')}}">shortcut</a>
             <!--solo per test, ricordarsi di toglierlo dopo!!-->
           </li>
           <li class="nav-item dropdown">
@@ -46,12 +46,12 @@
               Dropdown
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">contatti</a></li>
+              <li><a class="dropdown-item" href="#">about</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="{{url_for('presentazione')}}">presentazione</a></li>
             </ul>
           </li>
           <li class="nav-item">

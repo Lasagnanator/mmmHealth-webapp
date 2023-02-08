@@ -27,6 +27,14 @@
             </span>
             <span>
                 <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>
                     {{ form.phoneNumber.label }}<br>
                     {{ form.phoneNumber(class_="border rounded-pill ", size=32) }}</p>
                 {% for error in form.phoneNumber.errors %}
