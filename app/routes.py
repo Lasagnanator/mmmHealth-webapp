@@ -2,8 +2,7 @@ from flask import render_template, flash, redirect, url_for, session
 from app import app
 import app.forms as f
 import app.query as q
-import random
-import string
+import random, string
 
 @app.route('/')
 def root():
@@ -43,9 +42,11 @@ def registration():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     doctor_id = session.get('doctor_id', None)
-    doctor_data=q.select_all_doctor(doctor_id)
+    doctor_data = q.select_all_doctor(doctor_id)
+    patient_list = q.doc_patients(doctor_id)
+    names_list = q.doctor_patients(doctor_id, True)
     form = f.PatientFilters()
-    patient_list= q.doc_patients(doctor_id)
+    form.byName.choices = names_list
     #if form.validate_on_submit():
         
        # flash ('filter patiets by {}'.format(form.alfabetico.data))  #aggiungere order by name alla query

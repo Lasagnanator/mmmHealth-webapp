@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField, EmailField
 from wtforms.validators import DataRequired, ValidationError, EqualTo, Length
 from wtforms_alchemy import PhoneNumberField
-from datetime import date, datetime
+from datetime import date
+from app import query as q
+from flask import session
 
 
 
@@ -70,8 +72,10 @@ class PatientFilters(FlaskForm):
     byDate      = DateField('data report')
     dateOrder   = SelectField('ordina report per data', choices=[(True, 'dal più recente'), (False,'dal meno recente')]) #se true ordine decrescente, se false crescente
     alfabetico  = SelectField('ordine alfabetico', choices=[(True, 'A-Z'), (False,'Z-A')]) #se true ordine decrescente, se false crescente
-    byName      = SelectField("inserisci il nome", choices=[(name) for name in possible_names.items()])
-    submit      = SubmitField('Cerca')
+    # byName      = SelectField("inserisci il nome", choices=[(name) for name in possible_names.items()])
+    byName      = SelectField("inserisci il nome", validate_choice=False)
+    submit      = SubmitField("Cerca")
+
 
 def validate_on_submit(self):
             result = super(PatientFilters, self).validate()

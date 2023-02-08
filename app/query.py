@@ -3,7 +3,7 @@ from app.models import Login_doctor, Doctor, Report, Patient
 from app.utils import hash512
 
 #controlla se la password inserita coincide con quella inserita nel DB con quell'username
-def passwdcheck(password, username):
+def passwdcheck(password: str, username: str) -> bool:
     result = db.session.execute(db.select(Login_doctor.password).where(Login_doctor.username == username )).first()
     if result[0] == hash512(password):
         check = True
@@ -45,21 +45,30 @@ def report_data(report_id):
 ######### ########## ########quey per filtrare i pazienti ######### ######### #########
 
 #pazienti in ordine alfabetico
-def patient_filters(doctor_id, alfabetico): 
-    result
+def doctor_patients(doctor_id: int, alfabetico: bool): 
     if alfabetico:
-        result= db.session.execute(db.select(Patient.patient_id).where(Doctor.doctor_id == doctor_id).order_by(Doctor.name)).all()
+        result = db.session.execute(db.select(Patient.patient_id, Patient.name, Patient.lastname).where(Patient.doctor_id == doctor_id).order_by(Patient.name, Patient.lastname)).all()
     else:
-        result= db.session.execute(db.select(Patient.patient_id).where(Doctor.doctor_id == doctor_id).order_by(Doctor.name.desc())).all()
+        result = db.session.execute(db.select(Patient.patient_id, Patient.name, Patient.lastname).where(Patient.doctor_id == doctor_id).order_by(Patient.name.desc(), Patient.lastname.desc())).all()
     return result
+
+def patients_list(doctor_id: int, alfabetico: bool): 
+    if alfabetico:
+        result = db.session.execute(db.select(Patient.patient_id, Patient.name, Patient.lastname).where(Patient.doctor_id == doctor_id).order_by(Patient.name, Patient.lastname)).all()
+    else:
+        result = db.session.execute(db.select(Patient.patient_id, Patient.name, Patient.lastname).where(Patient.doctor_id == doctor_id).order_by(Patient.name.desc(), Patient.lastname.desc())).all()
+    name_list = []
+    for row in result:
+        name_list.append(row[1] + " " + row[2])
+    return name_list
 
 #solo paziente selezionato
-def patient_filters(doctor_id, byName): 
-    result =   db.session.execute(db.select(Patient.patient_id).where(Doctor.doctor_id == doctor_id, Patient.name == byName)).first()
+def patient_filter(doctor_id, byName: str): 
+    result =   db.session.execute(db.select(Patient.patient_id).where(Patient.doctor_id == doctor_id, Patient.name == byName)).first()
     return result
 
 
-def get_report (doctor_id):
+""" def get_report (doctor_id):
     query = db.select(
                 Report.patient_id,  # 0
                 Patient.name,       # 1
@@ -86,17 +95,27 @@ def get_report (doctor_id):
                 break
         if (entry_found == False):
             reports.append(row)
-    return reports
+    return reports """
                 
-        
-#solo i report di data byDate e ordinati per alfabetico
-#TODO: inseririe inner join con tabella report per ordinarli per data
-'''
-def patient_filters(doctor_id, byDate, alfabetico):
-    result
-    if alfabetico:
-        result= db.session.execute(db.select(Patient.patient_id).where(Doctor.doctor_id == doctor_id,)  .orderBy(Patient.name))
-    else:
-        result= db.session.execute(db.select(Patient.patient_id).where(Doctor.doctor_id == doctor_id).  orderBy(Patient.name))#inveritre ordine alfabetico, come?
+
+def get_report (doctor_id):
+    query = db.select(
+                Report.patient_id,  # 0
+                Patient.name,       # 1
+                Patient.lastname,   # 2
+                Report.date,        # 3
+                Report.feelings,    # 4
+                Report.weight,      # 5
+                Report.sys,         # 6
+                Report.dia,         # 7
+                Report.bpm,         # 8
+                Report.spo2,        # 9
+                Report.notes        # 10
+                ).distinct(Report.patient_id)\
+                .where(Patient.doctor_id == doctor_id)\
+                .join(Report, Report.patient_id == Patient.patient_id)\
+                .order_by(Report.patient_id, Report.report_id.desc())
+    result = db.session.execute(query).all()
     return result
-    '''
+        
+#TODO: creare query per altre funzioni filtro
