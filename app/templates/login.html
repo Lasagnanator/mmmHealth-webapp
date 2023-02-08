@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center m-5  ">
+    <div class="d-block border border-3 rounded-5 p-4">
+        <h1 class="text-center"> Log In</h1>
+
+        <!--TODO: definire la action del from-->
+
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <span>
+                <p>{{ form.username.label }}</br>
+                    {{ form.username(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>{{ form.password.label }}</br>
+                    {{ form.password(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {% if error != '' %}
+                <span style="color: red;">
+                    <p>{{ error }}</p>
+                </span>
+                {% endif %}
+            </span>
+            <p class="text-center">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+
+            <p class="text-center colored">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
+        </form>
+        <span class="justify-content-center pt-3 d-block">
+            <p class="text-center"> non sei ancora registrato?</p>
+            <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button"
+                    href="{{url_for('registration')}}">clicca qui per la pagina di registrazione</a></p>
+        </span>
+    </div>
+
+</div>
+{% endblock %}

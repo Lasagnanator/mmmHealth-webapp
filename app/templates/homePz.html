@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+<!--HOME PAGE DEL PAZIENTE VISTA DAL MEDICO 
+CONTIENE TUTTI I DATI DEL PAZIENTE CON LA DASHBOARD
+SCI SONO FORM PER FILTRARE I DATI (PER DATA, TIPO ECC)
+    TODO: VALUTARE SE METTERE TUTTE LE INFO QUI O UNA SOTTOPAGINA-->
+{% block content %}
+<div class="container-fluid">
+    <div style="margin-left:5%">
+
+        <h1>{{ patient_data.lastname }} {{ patient_data.name }}</h1>
+        <!--TODO: correggere formato data-->
+        <p> data di nascita: {{ patient_data.birthday }}</p>
+
+
+    </div>
+
+    <div class="container overflow-auto" style="width: 40%; float: left; height: 600px;">
+        {% for report in report_list: %}
+        <!--card che si ripete per ogni report del singolo paziente-->
+        <div class="card m-3 shadow-sm">
+            <div class="card-body">
+                <!--TODO: correggere formato data-->
+                <h5 class="card-title"> data del report: {{ report[0].date }}</h5>
+                <p class="card-text"><strong> note: </strong>{{ report[0].notes }}</p>
+                <p class="card-text"><strong>feelings: </strong>{{ report[0].feelings }}</p>
+                <p class="card-text"><strong>pressione:</strong> {{ report[0].sys }} : {{ report[0].dia }}</p>
+                <a href="{{url_for('reportPz', report_id = report[0].report_id)}}"
+                    class="btn btn-primary rounded-pill">vedi il report completo</a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="container" style="width: 60%; float: right; max-height: 600px;">
+        <div class=" shadow-smr p-2 " style="width:50%; height: 300px; float:right">
+            <h4>andamento pressione sanguigna</h4>
+        </div>
+        <div class=" shadow-smr p-2 " style="width:50%; height: 300px; float:left">
+            <h3>andamento battito cardiaco</h3>
+        </div>
+        <div class="shadow-smr p-2 " style="width:50%; height: 300px; float:right">
+            <h3>andamento feelings</h3>
+        </div>
+
+        <div class=" shadow-smr p-2" style="width:50%; height: 300px; float:right">
+            <h3>andamento peso</h3>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

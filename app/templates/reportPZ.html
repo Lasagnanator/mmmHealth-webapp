@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>paziente: {{ patient_data.name}} {{ patient_data.lastname}} </h1>
+    <p>data di nascita: {{ patient_data.birthday}}</p>
+    <p>sesso: {{ patient_data.sex}}</p>
+    <p>contatti: {{ patient_data.email}}</p>
+    <p>ultimo accesso: {{ patient_data.last_access}}</p>
+
+    <h2>report del giorno {{ report_data.date}} </h2>
+    <div>
+        <span>
+            <ul>
+                <li>feelings: {{report_data.feelings}}</li>
+                <li>weight: {{report_data.weight}} </li>
+                <li>pressure: {{report_data.sys}}, {{report_data.dia}}</li>
+                <li>note: {{report_data.notes}}</li>
+                <!--TODO: aggiungere bpm e spo2 che non so perchè rompono tutto -->
+            </ul>
+        </span>
+
+
+    </div>
+    <p>calcolo trend? se positivo o negativo</p>
+
+    <div class="container">
+        <p>{{ form.freeField.label }}</p>
+        <p>{{ conferma }}</p>
+        <div class="input-group">
+            <p class="form-control" aria-label="With textarea">{{ form.freeField }}</p>
+            <p class="text-center colored">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base_doc.html" %}
+
+<!--PAGINA DI APERTURA DEL PROFILO DEL MEDICO 
+VEDE LISTA DEI SUOI PAZIENTI CON QUALCHE DATO BASE (TIPO NOMI E ULTIMO REPORT)
+-->
+
+{% block index %}
+<!--blocco con lista dei pazienti-->
+
+<div>
+  <!--form per filtrare i pazienti-->
+  <form action="" method="post" nonvalidate>
+
+    <ul class="nav justify-content-around p-3">
+      <li class="nav-item  p-2">
+        <!--ordina pazienti per ordine alfabetico-->
+        <p> {{ form.alfabetico.label }}
+          {{ form.alfabetico() }}
+        </p>
+      </li>
+      <li class="nav-item p-2">
+        <!--ricerca per ordine cronologico ultimo report-->
+        <p>{{ form.dateOrder.label }}
+          {{ form.dateOrder( )}}
+        </p>
+      </li>
+      <li class="nav-item p-2 ">
+        <!--selziona la data dei report da visualizzare-->
+        <p> {{ form.byDate.label }}
+          {{ form.byDate() }}
+          {% for error in form.byDate.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+      </li>
+      <li class="nav-item p-2 ">
+        <!--ricerca per nome paziente-->
+        <p>{{ form.byName.label }} <!-- so che si può fare ma non mi ricordo come -->
+          {{ form.byName() }}
+        </p>
+      </li>
+      <li class="nav-item p2 ">
+        {{ form.submit(class_="btn btn-primary rounded-pill") }}
+        </p>
+      </li>
+
+    </ul>
+  </form>
+</div>
+
+<div class="pt-3">
+  <!--card che si ripete per il numero di pazienti -->
+  {% for patient in patient_list: %}
+  <div class="card shadow-sm m-3">
+    <div class="card-header">
+      <p>
+        {{ patient[0].lastname }} {{ patient[0].name }}
+      </p>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">note</h5>
+      <p class="card-text"> {{ patient[0].medical_plan }}</p>
+      <a href="{{ url_for('homePz', patient_id = patient[0].patient_id)}}" class="btn btn-primary">vai alla
+        scheda del paziente</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock index %}

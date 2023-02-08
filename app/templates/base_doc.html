@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!--pagina con le info del profilo del medico
+richiamata sempre quando il doc ha fatto il login-->
+
+
+<!--barra in alto con profilo del medico-->
+<div>
+  <ul class="nav justify-content-around p-3 shadow-sm bg-body rounded">
+    <li class="nav-item  p-2">
+      <p> {{ doctor_data.name }}<br>
+        {{ doctor_data.lastname }}</p>
+    </li>
+    <li class="nav-item p-2">
+      <p>id: <br> {{ doctor_data.doctor_id }}</p>
+    </li>
+    <li class="nav-item p-2">
+      <p>tel: <br>{{ doctor_data.phonenumber }}</p>
+    </li>
+    <li>
+      <span class="justify-content-center pt-3 d-block">
+        <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button"
+            href="{{url_for('registrazionePz')}}">nuovo paziente</a></p>
+      </span>
+    </li>
+  </ul>
+</div>
+
+{% block index %}
+{% endblock index %}
+
+{% endblock content %}

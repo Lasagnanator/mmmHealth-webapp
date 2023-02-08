@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center m-5 p-2">
+    <div class="d-block border border-3 rounded-5 p-4">
+
+        <h1 class="text-center">Crea un account</h1>
+        <!--TODO: definire la action del from-->
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <span>
+                <p>
+                    {{ form.name.label }}<br>
+                    {{ form.name(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.name.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+            </span>
+            <span>
+                <p>
+                    {{ form.lastname.label }}<br>
+                    {{ form.lastname(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.lastname.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(class_="border rounded-pill ", size=32) }}</p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>
+                    <!--sex  BOOLEAN-->
+                    {{ form.sex.label }}<br>
+                    {{ form.sex }}
+                </p>
+                {% for error in form.sex.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+            </span>
+            <span>
+                <p>
+                    <!--altezza  INT-->
+                    {{ form.height.label }}<br>
+                    {{ form.height }}
+                </p>
+                {% for error in form.height.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+            </span>
+            <span>
+                <p>
+                    <!--data di nascita-->
+                    {{ form.birthdate.label }}<br>
+                    {{ form.birthdate}}
+                </p>
+                {% for error in form.birthdate.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <span>
+                <p>
+                    <!-- email -->
+                    {{ form.email.label }}<br>
+                    {{ form.email }}
+                </p>
+                {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </span>
+            <p class="text-center ">{{ form.submit(class_="btn btn-primary rounded-pill") }}</p>
+        </form>
+        <span class="justify-content-center pt-3 d-block">
+            <p class="text-center"><a class="btn btn-outline-primary rounded-pill" role="button"
+                    href="{{url_for('index')}}">annulla registrazione</a></p>
+        </span>
+    </div>
+</div>
+{% endblock %}
