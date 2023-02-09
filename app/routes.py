@@ -21,13 +21,18 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        check = q.passwdcheck(form.password.data, form.username.data )
-        if check:
-            doctor_id = q.id_doctor(form.username.data)
-            session['doctor_id'] = doctor_id
-            return redirect(url_for('index'))
-        else: 
-            return render_template('login.html',  title='Sign In', form=form, error = 'password sbagliata')
+
+        try: 
+            check = q.passwdcheck(form.password.data, form.username.data )
+            if check:
+                doctor_id = q.id_doctor(form.username.data)
+                session['doctor_id'] = doctor_id
+                return redirect(url_for('index'))
+            else: 
+                return render_template('login.html',  title='Sign In', form=form, error = 'password sbagliata')
+        except:
+            return render_template('login.html',  title='Sign In', form=form, error = 'nome utente non esite')
+
     return render_template('login.html',  title='Sign In', form=form, error= '')
 
 
