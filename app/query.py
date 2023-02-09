@@ -39,7 +39,7 @@ def select_all_patient(patient_id):
 
 #recupera tutti i report dato l'id di un paziente
 def reports(patient_id):
-    result =  db.session.execute(db.select(Report).where(Report.patient_id == patient_id)).all()
+    result =  db.session.execute(db.select(Report).where(Report.patient_id == patient_id).order_by(Report.report_id.desc())).all()
     return result
 
 #recupera i dati di un report dato un id
